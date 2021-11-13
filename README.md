@@ -8,9 +8,15 @@ Está version está ajustada a react-router v6 y uso outLet context para pasar l
 El outlet context si está vacio devuelve un error asi que por defecto siempre lo pongo en 999999, horrible, pero es el fix por el momento.
 
 
-# Getting Started with Create React App
+# Para crear el proyecto usamos [Create React App](https://github.com/facebook/create-react-app)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Clonar el proyecto y ejecutar
+
+### `npm install`
+
+para descargar todas las dependencias.
+
+
 
 ## Available Scripts
 
