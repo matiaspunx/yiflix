@@ -10,13 +10,16 @@ El outlet context si está vacio devuelve un error asi que por defecto siempre l
 
 # Para crear el proyecto usamos [Create React App](https://github.com/facebook/create-react-app)
 
-Clonar el proyecto y ejecutar
+Para usar este repositorio:
+
+Clonar el repo y ejecutar
 
 ### `npm install`
 
 para descargar todas las dependencias.
 
-
+##
+##
 
 ## Available Scripts
 
