@@ -1,0 +1,17 @@
+.title {
+  text-align: center;
+  color: aliceblue;
+  font-size: 3rem;
+  text-shadow: 3px 3px 20px #ff99cc,
+    -2px 1px 30px #ff99cc;
+}
+.navigation {
+  color: #ff99cc;
+  display: flex;
+  justify-content: center;
+  a:link, a:visited {
+    color: #ff99cc;
+    text-decoration: none;
+    margin: 0 10px;
+  }
+}

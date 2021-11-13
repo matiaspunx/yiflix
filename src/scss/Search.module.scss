@@ -1,0 +1,36 @@
+.searchContainer {
+  padding: 40px 0 0;
+  display: flex;
+  justify-content: center;
+
+  .searchBox {
+    position: relative;
+
+    input, button {
+      border: none;
+      background: inherit;
+      padding: 5px;
+      height: 35px;
+    }
+    .searchIcon {
+      position: absolute;
+      top: 14px;
+      right: 10px;
+      color: #000;
+      &:focus {
+        outline: none;
+      }
+    }
+    input {
+      border: 1px solid #fff;
+      background: #fff;
+      border-radius: 8px;
+      padding: 5px 45px 5px 10px;
+      &:focus {
+        outline: none;
+        border: 1px solid #f88ec2;
+        box-shadow: 0 0 12px #ebbed4;
+      }
+    }
+  }
+}
