@@ -1,3 +1,13 @@
+# Yiflix
+Está basado en los videotutoriales de Yoelvis Mulen { code }
+
+Está version está ajustada a react-router v6 y uso outLet context para pasar la información a los componentes hijos.
+
+## Bugs
+
+El outlet context si está vacio devuelve un error asi que por defecto siempre lo pongo en 999999, horrible, pero es el fix por el momento.
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
