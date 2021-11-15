@@ -30,7 +30,7 @@ export const LandingPage = () => {
     deboucedSearch = 999999
   }
 
-  console.log('en landing page? ', deboucedSearch)
+  //console.log('en landing page? ', deboucedSearch)
 
   return (
     <>
