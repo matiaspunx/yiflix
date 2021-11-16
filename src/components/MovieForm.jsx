@@ -20,14 +20,15 @@ export const MovieForm = (props) => {
     editedMovie.title = e.target.title.value;
     editedMovie.trailer = e.target.trailer.value;
     editedMovie.torrent = e.target.torrent.value;
+    editedMovie.netflix = e.target.netflix.value;
     editedMovie.overview = e.target.overview.value;
     editedMovie.last_edited = user.displayName;
     editedMovie.last_edited_time = new Intl.DateTimeFormat('en-US', {day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'}).format(timestamp);
 
-    if(isNaN(editedMovie.likes)) {
+    /* if(isNaN(editedMovie.likes)) {
       editedMovie.likes = 0;
     }
-    editedMovie.likes = editedMovie.likes + 1;
+    editedMovie.likes = editedMovie.likes + 1; */
 
     setEditedMovie({...movie, ...editedMovie})
     firebaseGuardarMovie("movies", editedMovie)
@@ -53,6 +54,10 @@ export const MovieForm = (props) => {
         <label>
           <span>Torrent</span>
           <input type="text" name="torrent" defaultValue={editedMovie.torrent} placeholder="Torrent URL" />
+        </label>
+        <label>
+          <span>Netflix</span>
+          <input type="text" name="netflix" defaultValue={editedMovie.netflix} placeholder="Netflix URL" />
         </label>
 
         <button type="submit">Guardar peli</button>

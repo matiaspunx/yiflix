@@ -1,9 +1,13 @@
-.title {
-  text-align: center;
-  color: aliceblue;
-  font-size: 3rem;
-  text-shadow: 3px 3px 20px #ff99cc,
-    -2px 1px 30px #ff99cc;
+header {
+  padding: 20px 0;
+    .title {
+    text-align: center;
+    color: aliceblue;
+    font-size: 3rem;
+    text-shadow: 3px 3px 20px #ff99cc,
+      -2px 1px 30px #ff99cc;
+    margin: 0;
+  }
 }
 .navigation {
   color: #ff99cc;
@@ -13,5 +17,12 @@
     color: #ff99cc;
     text-decoration: none;
     margin: 0 10px;
+  }
+  button {
+    background: #ff99cc;
+    border: none;
+    border-radius: 8px;
+    padding: 3px 10px;
+    cursor: pointer;
   }
 }

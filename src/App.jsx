@@ -42,7 +42,7 @@ const [usuarioGlobal, setUsuarioGlobal] = useState(null);
         <Link to="/">Home</Link> |{" "}
 
         {usuarioGlobal
-        ? <span>&nbsp;Hola, {usuarioGlobal.displayName} <button onClick={() => signOut(auth)}>Salir</button></span>
+        ? <span>&nbsp;&nbsp;Hola, {usuarioGlobal.displayName} <button onClick={() => signOut(auth)}>Salir</button></span>
         : <button onClick={firebaseGoogleLogin}>Login</button>}
       </nav>
 

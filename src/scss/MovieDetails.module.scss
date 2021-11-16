@@ -51,6 +51,24 @@
         font-style: italic;
         color: burlywood;
       }
+      .likes {
+        display: inline-flex;
+        align-items: center;
+        background:lemonchiffon;
+        color: orangered;
+        border-radius: 8px;
+        padding: 3px 10px 3px 0;
+        cursor: pointer;
+        .likeBtn {
+          border: none;
+          background: transparent;
+          cursor: pointer;
+        }
+        span {
+          font-size: 12px;
+        }
+      }
+
     }
   }
   @media (max-width: 360px){
@@ -73,8 +91,9 @@
       }
     }
   }
-  .torrentHolder {
-    .torrent {
+  .torrentHolder, .netflixHolder {
+    margin-bottom: 10px;
+    .torrent, .netflix {
       display: flex;
       align-items: center;
       padding: 0;
@@ -82,11 +101,17 @@
         margin-right: 10px;
       }
       a:link, a:visited {
+        font-size: 12px;
         background: green;
         color: cornsilk;
         display: inline-block;
         padding: 10px;
         border-radius: 8px;
+      }
+    }
+    .netflix {
+      a:link, a:visited {
+        background: #e50914;
       }
     }
   }

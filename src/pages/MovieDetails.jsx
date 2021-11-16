@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import styles from '../scss/MovieDetails.module.scss'
 import torrent from '../assets/img/torrent.png'
+import netflix from '../assets/img/netflix.png'
 import { useParams } from 'react-router';
 import { get } from '../utils/httpClient';
 import { Spinner } from '../components/Spinner';
@@ -20,10 +21,15 @@ export const MovieDetails = ({user}) => {
   const [movie, setMovie] = useState(null);
   const [edit, setEdit] = useState(false);
   const [editado, setEditado] = useState(false);
+  const [clicked, setClicked] = useState(false)
 
   const pull_data = (data) => {
     setEditado(data);
   }
+
+  useEffect(() => {
+    handleLikes();
+  }, [clicked]);
 
   useEffect(() => {
     if(movie) {
@@ -71,6 +77,21 @@ export const MovieDetails = ({user}) => {
     }
   }
 
+  const handleLikes = () => {
+    if(movie) {
+      let likes;
+      let like = movie.likes;
+
+      if(clicked === true) {
+        likes = {
+          likes: like +1
+        }
+        setMovie({...movie, ...likes})
+        firebaseGuardarMovie("movies", {...movie, ...likes})
+      }
+    }
+  }
+
   const editMovie = () => {
     setEdit(true);
   }
@@ -93,6 +114,11 @@ export const MovieDetails = ({user}) => {
 
       <div className={`${styles.col} ${styles.details}`}>
         <h2>{movie.title} ({movie.release_date.substring(0,4)})</h2>
+
+        <span className={styles.likes} onClick={() => {setClicked(true)}}>
+          <button className={styles.likeBtn}>{clicked ? '🧡' : '🖤' }</button><span>{movie.likes}</span>
+        </span>
+
         <h4>{movie.tagline}</h4>
         <p>{movie.overview}</p>
 
@@ -107,6 +133,9 @@ export const MovieDetails = ({user}) => {
         </div>
         : ''
         }
+
+        {movie.netflix ? <div className={styles.netflixHolder}><h3>Ver en Netflix</h3><div className={styles.netflix}><img src={netflix} width={24} alt='netflix' /><a href={movie.netflix}>Ver en Netflix</a></div></div> : ''}
+
         {movie.torrent ? <div className={styles.torrentHolder}><h3>Torrent</h3><div className={styles.torrent}><img src={torrent} width={24} alt='Torrent' /><a href={movie.torrent}>Descargar torrent</a></div></div> : ''}
 
         {movie.last_edited && movie.last_edited_time
