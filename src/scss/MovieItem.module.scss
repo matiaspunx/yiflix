@@ -7,20 +7,24 @@
   a {
     color: #fff;
   }
+
   img {
-    border-radius: 10px;
-    background-color: azure;
+    border-radius: 8px;
+    background-color: #000000;
     transition: all .25s ease-out;
+    border: 1px solid #000000;
+    padding: 3px;
   }
   @media (max-width: 560px){
     img {
-      width: 90%;
+      width: 50%;
       height: auto;
     }
   }
   &:hover {
     img {
-      opacity: 0.8;
+      opacity: 0.9;
+      border: 1px solid #f88ec2;
     }
   }
 }

@@ -1,6 +1,33 @@
 .movieForm {
   display: flex;
-  input {
+  flex-direction: column;
+  margin: 20px auto;
+  max-width: 500px;
+  label {
+    display: flex;
+    flex-direction: column;
+    span {
+      margin-bottom: 5px;
+    }
+    input, textarea {
+    font-family: 'Roboto', sans-serif;
     font-size: 14px;
+    padding: 8px;
+    border: 1px solid #f88ec2;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    &:focus {
+      outline: none;
+    }
+  }
+  }
+
+  button {
+    font-size: 14px;
+    padding: 5px;
+    background-color:  #f88ec2;
+    border: none;
+    border-radius: 8px;
+    margin-top: 10px;
   }
 }

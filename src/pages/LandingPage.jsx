@@ -20,7 +20,6 @@ export function useOutletContext() {
 }
 
 export const LandingPage = () => {
-
   const query = useQuery();
   let search = query.get("search");
 

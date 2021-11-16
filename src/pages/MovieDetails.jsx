@@ -1,50 +1,77 @@
 import { useEffect, useState } from 'react'
 import styles from '../scss/MovieDetails.module.scss'
+import torrent from '../assets/img/torrent.png'
 import { useParams } from 'react-router';
 import { get } from '../utils/httpClient';
 import { Spinner } from '../components/Spinner';
 import { MovieForm } from '../components/MovieForm';
 import { getMovieImg } from '../utils/getMovieImg';
 
+import firebaseApp from '../utils/FirebaseCredenciales';
+import { doc, getFirestore, onSnapshot } from 'firebase/firestore';
 import { firebaseBuscarMovie, firebaseGuardarMovie } from '../utils/FirebaseUtils';
 
-export const MovieDetails = () => {
+const firestore = getFirestore(firebaseApp);
+
+export const MovieDetails = ({user}) => {
   const urlParams = useParams();
   const movieId = urlParams.movieId;
   const [isLoading, setIsLoading] = useState(true)
   const [movie, setMovie] = useState(null);
   const [edit, setEdit] = useState(false);
+  const [editado, setEditado] = useState(false);
+
+  const pull_data = (data) => {
+    setEditado(data);
+  }
+
+  useEffect(() => {
+    if(movie) {
+    document.body.style.setProperty('--background', 'url('+getMovieImg(movie.poster_path, 500)+')');
+    }
+  }, [movie]);
 
   useEffect(() => {
     setIsLoading(true);
 
     get('/movie/'+ movieId).then(data => {
       buscarMovie(data, data.imdb_id);
-      setIsLoading(false);
     })
 
   }, [movieId])
 
   useEffect(() => {
-    console.log('se modifico la peli');
-    setMovie(movie);
-  }, [edit])
+    fbSnap()
+  }, [editado])
+
+
+  function fbSnap() {
+    if(movie) {
+      let ref = doc(firestore, 'movies', movie.imdb_id)
+      const unsub = onSnapshot(ref, (doc) => {
+        let res = doc.data();
+        if(res) {
+          setMovie(res);
+        }
+      });
+    }
+  }
 
   async function buscarMovie(data, id) {
-    let resultado = await firebaseBuscarMovie("movies", id);
+    const resultado = await firebaseBuscarMovie("movies", id);
 
     if (!resultado) {
       console.log('esta movie no existe en firebase la voy a crear...');
       firebaseGuardarMovie("movies", data);
       setMovie(data);
+      setIsLoading(false);
     } else {
       setMovie(resultado);
+      setIsLoading(false);
     }
   }
 
-  function editMovie() {
-    movie.title = `[EDIT] ${movie.title}`;
-    firebaseGuardarMovie("movies", movie);
+  const editMovie = () => {
     setEdit(true);
   }
 
@@ -61,17 +88,35 @@ export const MovieDetails = () => {
     <>
     <div className={styles.dContainer}>
       <div className={`${styles.col} ${styles.col_img}`}>
-        <img width={500} height={750} src={imgUrl} alt={movie.title} />
+        <img width={320} height={474} src={imgUrl} alt={movie.title} />
       </div>
 
       <div className={`${styles.col} ${styles.details}`}>
-        <h2>{movie.title}</h2>
-        {movie.genres.map(genero => genero.name).join(', ')}
+        <h2>{movie.title} ({movie.release_date.substring(0,4)})</h2>
+        <h4>{movie.tagline}</h4>
         <p>{movie.overview}</p>
+
+        <p className={styles.generos}>
+          <span>Generos:</span> {movie.genres.map(genero => genero.name).join(', ')}
+        </p>
+
+        {movie.trailer ?
+        <div className="trailer">
+          <h3>Trailer</h3>
+          <iframe width="100%" height="315" src={`https://www.youtube.com/embed/${movie.trailer}`} title="YouTube video player" allowfullscreen></iframe>
+        </div>
+        : ''
+        }
+        {movie.torrent ? <div className={styles.torrentHolder}><h3>Torrent</h3><div className={styles.torrent}><img src={torrent} width={24} alt='Torrent' /><a href={movie.torrent}>Descargar torrent</a></div></div> : ''}
+
+        {movie.last_edited && movie.last_edited_time
+        ? <span className={styles.lastEdit}>Ultima vez editado por {movie.last_edited} el {movie.last_edited_time}</span>
+        : ''
+        }
       </div>
     </div>
-    <div><button onClick={() => editMovie()}>Editar</button></div>
-    {edit === true ? <MovieForm movie={movie} /> : ''}
+    <div className={styles.editbtn}><button onClick={() => editMovie()}>Editar</button></div>
+    {edit === true && <MovieForm movie={movie} user={user} func={pull_data} />}
     </>
   )
 }

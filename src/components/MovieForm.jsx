@@ -2,25 +2,60 @@ import { useState, useEffect } from "react"
 import { firebaseGuardarMovie } from '../utils/FirebaseUtils';
 import styles from '../scss/MovieForm.module.scss';
 
-export const MovieForm = ({movie}) => {
+export const MovieForm = (props) => {
   const [editedMovie, setEditedMovie] = useState([]);
 
+  let movie = props.movie;
+  let user = props.user
 
   useEffect(() => {
-    //setEditedMovie({...movie, editedMovie});
-    console.log(editedMovie);
-  }, [movie, editedMovie]);
+    setEditedMovie(movie);
+  }, [movie]);
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    setEditedMovie({...movie}, editedMovie)
-    console.log(editedMovie);
+
+    const timestamp = Date.now();
+
+    editedMovie.title = e.target.title.value;
+    editedMovie.trailer = e.target.trailer.value;
+    editedMovie.torrent = e.target.torrent.value;
+    editedMovie.overview = e.target.overview.value;
+    editedMovie.last_edited = user.displayName;
+    editedMovie.last_edited_time = new Intl.DateTimeFormat('en-US', {day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'}).format(timestamp);
+
+    if(isNaN(editedMovie.likes)) {
+      editedMovie.likes = 0;
+    }
+    editedMovie.likes = editedMovie.likes + 1;
+
+    setEditedMovie({...movie, ...editedMovie})
+    firebaseGuardarMovie("movies", editedMovie)
+    props.func(true)
   }
 
   return (
     <div>
       <form className={styles.movieForm} onSubmit={handleSubmit}>
-        <input type="text" name="title" onChange={(e) => editedMovie.title = e.target.value} />
+        <h2>Editando como {user.displayName}</h2>
+        <label>
+          <span>Titulo</span>
+          <input type="text" name="title" defaultValue={editedMovie.title} />
+        </label>
+        <label>
+          <span>Sinopsis</span>
+          <textarea type="text" rows={6} name="overview" defaultValue={editedMovie.overview} placeholder="Sinopsis"></textarea>
+        </label>
+        <label>
+          <span>Trailer</span>
+        <input type="text" name="trailer" defaultValue={editedMovie.trailer} placeholder="Youtube trailer ID" />
+        </label>
+        <label>
+          <span>Torrent</span>
+          <input type="text" name="torrent" defaultValue={editedMovie.torrent} placeholder="Torrent URL" />
+        </label>
+
+        <button type="submit">Guardar peli</button>
       </form>
     </div>
   )

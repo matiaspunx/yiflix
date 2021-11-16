@@ -3,10 +3,11 @@
   flex-direction: row;
   justify-content: center;
   flex-wrap: wrap;
-  margin-top: 40px;
+  margin: 40px auto;
+  max-width: 940px;
+  padding: 0 10px;
   .col {
-    max-width: 500px;
-    margin: 0 15px;
+    margin: 0 10px;
     img {
       max-width: 100%;
       border-radius: 10px;
@@ -19,6 +20,36 @@
     &.col_img {
       img {
         min-width: 320px;
+      }
+    }
+    &.details {
+      flex: 1;
+      min-width: 320px;
+      border-radius: 10px;
+      padding: 20px;
+      background: rgba(#000000, 0.5);
+      h2 {
+        margin: 0 0 10px;
+        padding: 0;
+      }
+      h4 {
+        margin: 0;
+        padding: 0;
+      }
+      .generos {
+        font-style: italic;
+        font-size: 12px;
+        span {
+          font-style: normal;
+        }
+      }
+      iframe {
+        border: none;
+      }
+      .lastEdit {
+        font-size: 11px;
+        font-style: italic;
+        color: burlywood;
       }
     }
   }
@@ -41,6 +72,37 @@
         }
       }
     }
+  }
+  .torrentHolder {
+    .torrent {
+      display: flex;
+      align-items: center;
+      padding: 0;
+      img {
+        margin-right: 10px;
+      }
+      a:link, a:visited {
+        background: green;
+        color: cornsilk;
+        display: inline-block;
+        padding: 10px;
+        border-radius: 8px;
+      }
+    }
+  }
+}
+
+.editbtn {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  button {
+    background: black;
+    border: none;
+    border-radius: 8px;
+    color: blanchedalmond;
+    padding: 10px 20px;
+    cursor: pointer;
   }
 }
 

@@ -26,6 +26,11 @@ export const MoviesGrid = (props) => {
   const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
+    document.body.style = 'background-image: url();';
+    document.body.className = '';
+  }, [page]);
+
+  useEffect(() => {
     setIsLoading(true);
     const searchUrl = search
     ? '/search/movie?query='+ search + '&page=' + page

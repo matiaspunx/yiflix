@@ -49,12 +49,11 @@ const [usuarioGlobal, setUsuarioGlobal] = useState(null);
       <main>
 
           <Routes>
-
             <Route path="/" element={<LandingPage />}>
               <Route path="" element={<MoviesGrid />}></Route>
               <Route path="movies" element={<MoviesGrid />}></Route>
               <Route path="movie">
-                <Route path=":movieId" element={<MovieDetails />}></Route>
+                <Route path=":movieId" element={<MovieDetails user={usuarioGlobal} />} />
               </Route>
             </Route>
           </Routes>

@@ -5,6 +5,8 @@ Está version está ajustada a react-router v6 y uso outLet context para pasar l
 
 Esta version tambien incorpora Firebase. Para la autenticación y guardado de las peliculas. Las peliculas las recibe de la API y si no estan en firebase las crea y pasa a usar la referencia desde Firebase para que podamos editar la información, calificarla y agregarle datos para descargarla o trailer.
 
+
+
 ## Bugs
 
 El outlet context si está vacio devuelve un error asi que por defecto siempre lo pongo en 999999, horrible, pero es el fix por el momento.

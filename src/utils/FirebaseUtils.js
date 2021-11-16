@@ -7,10 +7,9 @@ import {
   GoogleAuthProvider
 } from 'firebase/auth';
 
-import { collection, getDocs, setDoc, doc, deleteDoc, getFirestore, query, where } from 'firebase/firestore';
-import { getGravatar } from './getAvatar';
+import { collection, getDocs, setDoc, doc, getFirestore, query, where } from 'firebase/firestore';
 
-import { v4 as uuidv4 } from 'uuid';
+//import { v4 as uuidv4 } from 'uuid';
 
 const auth = getAuth(firebaseApp);
 const firestore = getFirestore(firebaseApp);
@@ -44,30 +43,6 @@ export async function firebaseGoogleLogin() {
   return true;
 }
 
-export async function firebaseBuscarClientes(coleccion) {
-  let listado = [];
-  let consulta = collection(firestore, coleccion)
-  let resultado = await getDocs(consulta)
-  resultado.forEach(doc => {
-    let cliente = doc.data()
-    cliente.id = doc.id;
-    listado.push(cliente);
-  })
-  return listado
-}
-
-export async function firebaseCrearCliente(coleccion, objeto) {
-  objeto.avatar = getGravatar(objeto.email, 44);
-  objeto.id = uuidv4();
-  let ref = doc(firestore, coleccion, objeto.id)
-  setDoc(ref, objeto);
-}
-
-export async function firebaseEliminarCliente(coleccion, id) {
-  await deleteDoc(doc(firestore, coleccion, id))
-}
-
-
 // peliculas
 export async function firebaseBuscarMovie(coleccion, id) {
   let newMovie;
@@ -78,7 +53,7 @@ export async function firebaseBuscarMovie(coleccion, id) {
 
   querySnapshot.forEach((doc) => {
     let res = doc.data();
-    console.log('esta movie existe en firebase');
+    console.log('Esta movie ya existe en Firebase');
     if(res) {
       newMovie = res;
     }
